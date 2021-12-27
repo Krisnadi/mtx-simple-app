@@ -35,6 +35,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/', include('auth.urls')),
+    path('dj-rest-auth/registration/', include('auth.registration.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     # path('password-reset/confirm/<uidb64>/<token>/',
     #      TemplateView.as_view(template_name="password_reset_confirm.html"),
