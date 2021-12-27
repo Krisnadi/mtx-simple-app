@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MTX</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h4>Dashboard</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="tablinks active" onclick="changeTab(event, 'tab-profile')"><a href="javascript:void(0);">Profile</a></li>
+        <li class="tablinks" onclick="changeTab(event, 'tab-changename')"><a href="javascript:void(0);">Change Name</a></li>
+        <li class="tablinks" onclick="changeTab(event, 'tab-changepassword')"><a href="javascript:void(0);">Change Password</a></li>
+        <li><a href="javascript:void(0);" id="logout">Log Out</a></li>
+      </ul><br>
+    </div>
+
+    <div id="tab-profile" class="col-sm-9 tabcontent">
+      <h2>My Profile</h2>
+      <label id="email-label">Email:</label>
+      <br>
+      <label id="name-label">Name:</label>
+    </div>
+
+    <div id="tab-changename" class="col-sm-9 tabcontent" style="display: none;">
+      <h2>Change Name</h2>
+      <form action="{% url 'rest_user_details' %}" method="patch" id="change_name-form" role="form">
+        <div class="form-group">
+            <input name="first_name" type="text" class="form-control" placeholder="First name">
+            <label style="color:red" id="first_name-label"></label>
+        </div>
+        <div class="form-group">
+            <input name="last_name" type="text" class="form-control" placeholder="Last name">
+            <label style="color:red" id="last_name-label"></label>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Save</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="tab-changepassword" class="col-sm-9 tabcontent" style="display: none;">
+      <h2>Change Password</h2>
+      <form action="{% url 'rest_password_change' %}" method="post" id="change_password-form" role="form">
+        <div class="form-group">
+            <input name="old_password" type="password" class="form-control" placeholder="Old Password" required="required">
+            <label style="color:red" id="old_password-label"></label>
+        </div>
+        <div class="form-group">
+            <input name="new_password1" type="password" class="form-control" placeholder="New Password" required="required">
+            <label style="color:red" id="new_password1-label"></label>
+        </div>
+        <div class="form-group">
+            <input name="new_password2" type="password" class="form-control" placeholder="Confirm Password" required="required">
+            <label style="color:red" id="new_password2-label"></label>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  function changeTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+
+  function logout() {
+    var settings = {
+      "url": "{% url 'rest_logout' %}",
+      "method": "POST"
+    };
+
+    $.ajax(settings).done(function (response) {
+      location.href = "{% url 'home' %}";
+    });
+  }
+
+
+  // on ready
+  $().ready(function(){
+    $('#first_name-label').hide();
+    $('#last_name-label').hide();
+    $('#old_password-label').hide();
+    $('#new_password1-label').hide();
+    $('#new_password2-label').hide();
+
+    // get user detail
+    var settings = {
+      "url": "{% url 'rest_user_details' %}",
+      "method": "GET"
+    };
+
+    $.ajax(settings).done(function (response) {
+      $('#email-label').html('Email: ' + response['email']);
+      $('#name-label').html('Name: ' + response['first_name'] + ' ' + response['last_name']);
+    }).fail(function (response) {
+      alert('Unauthorized. Please login.');
+      location.href = "{% url 'home' %}";
+    });
+  });
+
+
+  // update profile
+  $("#change_name-form").submit(function(){
+    var form = $('#change_name-form').serialize();
+    var settings = {
+      "url": "{% url 'rest_user_details' %}",
+      "method": "PATCH",
+      "data": form
+    };
+
+    $.ajax(settings).done(function (response) {
+      location.href = "{% url 'dashboard' %}";
+    }).fail(function (response) {
+      $('#first_name-label').hide();
+      $('#last_name-label').hide();
+
+      response = response.responseJSON;
+      if ("first_name" in response) {
+        $('#first_name-label').show();
+        $('#first_name-label').html(response['first_name']);
+      }
+      if ("last_name" in response) {
+        $('#last_name-label').show();
+        $('#last_name-label').html(response['last_name']);
+      }
+    });
+    return false;
+  });
+
+
+  // change password
+  $("#change_password-form").submit(function(){
+    var form = $('#change_password-form').serialize();
+    var settings = {
+      "url": "{% url 'rest_password_change' %}",
+      "method": "POST",
+      "data": form
+    };
+
+    $.ajax(settings).done(function (response) {
+      alert('Password changed successfully. Please re-login.');
+      logout();
+    }).fail(function (response) {
+      $('#old_password-label').hide();
+      $('#new_password1-label').hide();
+      $('#new_password2-label').hide();
+
+      response = response.responseJSON;
+      if ("old_password" in response) {
+        $('#old_password-label').show();
+        $('#old_password-label').html(response['old_password']);
+      }
+      if ("new_password1" in response) {
+        $('#new_password1-label').show();
+        $('#new_password1-label').html(response['new_password1']);
+      }
+      if ("new_password2" in response) {
+        $('#new_password2-label').show();
+        $('#new_password2-label').html(response['new_password2']);
+      }
+    });
+    return false;
+  });
+
+
+  // logout
+  $("#logout").click(function(){
+    logout();
+  });
+</script>
+</html>

@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "mtx"
+version = "0.1.0"
+description = ""
+authors = ["krisnadi <alexanderkrisnadi@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "3.2.10"
+djangorestframework = "^3.12.4"
+psycopg2-binary = "^2.9.2"
+django-environ = "^0.8.1"
+pytz = "^2021.3"
+dj-rest-auth = "^2.1.11"
+djangorestframework-simplejwt = "^5.0.0"
+django-allauth = "^0.47.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

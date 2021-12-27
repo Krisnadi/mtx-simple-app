@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="132234661954-a6jlc9v34pdjgd72srmn03gaj6976amd.apps.googleusercontent.com">
+<title>MTX</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.login-form {
+    width: 340px;
+    margin: 50px auto;
+    font-size: 15px;
+}
+.login-form form {
+    margin-bottom: 15px;
+    background: #f7f7f7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+.btn {
+    font-size: 15px;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0&appId=280462847463248&autoLogAppEvents=1" nonce="rBSK5j4j"></script>
+<div class="login-form">
+    <form action="{% url 'rest_login' %}" method="post" class="form-horizontal ajax-post" role="form">
+        <h2 class="text-center">Log in</h2>
+        <div class="form-group">
+            <input name="email" type="text" class="form-control" placeholder="Email" required="required">
+        </div>
+        <div class="form-group">
+            <input name="password" type="password" class="form-control" placeholder="Password" required="required">
+            <label style="color:red" id="password-label"></label>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </div>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-onlogin="checkLoginState();" data-scope="public_profile,email"></div>
+    </form>
+    <p class="text-center"><a href="{% url 'signup' %}">Create an Account</a></p>
+</div>
+<div class="form-group api-response"></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript">
+  var error_response = function(data){
+    $('#password-label').show();
+    $('#password-label').html("Wrong email or password!");
+  }
+  var success_response = function(data){
+    location.href = "{% url 'dashboard' %}";
+  }
+
+
+  // on ready
+  $().ready(function(){
+    $('#password-label').hide();
+    $('form.ajax-post button[type=submit]').click(function(){
+      var form = $('form.ajax-post');
+      $.post(form.attr('action'), form.serialize())
+      .fail(function(data){error_response(data);})
+      .done(function(data){success_response(data);});
+      return false;
+    });
+
+    // redirect the user to dashboard if the token is valid
+    var settings = {
+      "url": "{% url 'rest_user_details' %}",
+      "method": "GET"
+    };
+
+    $.ajax(settings).done(function (response) {
+      location.href = "{% url 'dashboard' %}";
+    });
+  });
+
+
+  // Social login API
+  function socialLogin(provider, accessToken) {
+    var form = new FormData();
+    form.append("access_token", accessToken);
+
+    var settings = {
+      "url": (provider == "google") ? "{% url 'google_login' %}" : "{% url 'fb_login' %}",
+      "method": "POST",
+      "processData": false,
+      "contentType": false,
+      "data": form
+    };
+
+    $.ajax(settings).done(function (response) {
+      location.href = "{% url 'dashboard' %}";
+    }).fail(function (response) {
+      response = response.responseJSON;
+      if ("non_field_errors" in response) {
+        alert(response['non_field_errors']);
+      }
+    });
+  }
+
+
+  // Google 
+  function onSignIn(googleUser) {
+    var response = googleUser.getAuthResponse();
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+    socialLogin("google", response.access_token);
+  }
+
+
+  // Facebook
+  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+    console.log('statusChangeCallback');
+    console.log(response);                   // The current login status of the person.
+    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+      socialLogin("facebook", response['authResponse']['accessToken']);
+    } else {                                 // Not logged into your webpage or we are unable to tell.
+      console.log('not connected');
+    }
+  }
+
+
+  function checkLoginState() {               // Called when a person is finished with the Login Button.
+    FB.getLoginStatus(function(response) {   // See the onlogin handler
+      statusChangeCallback(response);
+    });
+  }
+</script>
+</html>
