@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>MTX</title>
+</head>
+<body>
+    <p>Verifying your email...</p>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+    var form = new FormData();
+    form.append("key", window.location.pathname.split('/').at(-2));
+
+    var settings = {
+      "url": "{% url 'rest_verify_email' %}",
+      "method": "POST",
+      "processData": false,
+      "contentType": false,
+      "data": form
+    };
+
+    $.ajax(settings).done(function (response) {
+      location.href = "{% url 'dashboard' %}";
+    });
+</script>
+</html>

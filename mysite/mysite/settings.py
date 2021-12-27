@@ -105,16 +105,19 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'auth.validators.LowercaseValidator',
+    },
+    {
+        'NAME': 'auth.validators.UppercaseValidator',
+    },
+    {
+        'NAME': 'auth.validators.NumberValidator',
+    },
+    {
+        'NAME': 'auth.validators.SymbolValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -153,6 +156,7 @@ REST_FRAMEWORK = {
 
 # Django allauth settings
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_ADAPTER = 'auth.adapter.CustomAccountAdapter'
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"

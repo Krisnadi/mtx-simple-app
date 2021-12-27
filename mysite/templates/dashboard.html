@@ -177,6 +177,15 @@
   });
 
 
+  function generateErrorResponse(response) {
+    li = "";
+    for (let i = 0; i < response.length; i++) {
+      li += "<li>" + response[i] + "</li>";
+    }
+    return "<ul>" + li + "</ul>";
+  }
+
+
   // change password
   $("#change_password-form").submit(function(){
     var form = $('#change_password-form').serialize();
@@ -197,15 +206,15 @@
       response = response.responseJSON;
       if ("old_password" in response) {
         $('#old_password-label').show();
-        $('#old_password-label').html(response['old_password']);
+        $('#old_password-label').html(generateErrorResponse(response['old_password']));
       }
       if ("new_password1" in response) {
         $('#new_password1-label').show();
-        $('#new_password1-label').html(response['new_password1']);
+        $('#new_password1-label').html(generateErrorResponse(response['new_password1']));
       }
       if ("new_password2" in response) {
         $('#new_password2-label').show();
-        $('#new_password2-label').html(response['new_password2']);
+        $('#new_password2-label').html(generateErrorResponse(response['new_password2']));
       }
     });
     return false;

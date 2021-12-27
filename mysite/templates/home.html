@@ -45,6 +45,7 @@
         <div class="form-group">
             <input name="password" type="password" class="form-control" placeholder="Password" required="required">
             <label style="color:red" id="password-label"></label>
+            <a id="resend-email" onclick="resendEmail();" href="javascript:void(0);">Resend Email Verification</a>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
@@ -61,9 +62,38 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script type="text/javascript">
+  // Resend email verification
+  function resendEmail() {
+    var form = new FormData();
+    form.append("email", $("input[name=email]").val());
+
+    var settings = {
+      "url": "{% url 'rest_resend_email' %}",
+      "method": "POST",
+      "processData": false,
+      "contentType": false,
+      "data": form
+    };
+
+    $.ajax(settings).done(function (response) {
+      alert('Email verification sent. Please check your inbox or spam folder.');
+    });
+  }
+
+
   var error_response = function(data){
-    $('#password-label').show();
-    $('#password-label').html("Wrong email or password!");
+    response = data.responseJSON;
+    if ("password" in response) {
+      $('#password-label').show();
+      $('#password-label').html(response['password']);
+    }
+    if ("non_field_errors" in response) {
+      $('#password-label').show();
+      $('#password-label').html(response['non_field_errors']);
+      if (response['non_field_errors'][0] == "E-mail is not verified.") {
+        $('#resend-email').show();
+      }
+    }
   }
   var success_response = function(data){
     location.href = "{% url 'dashboard' %}";
@@ -73,6 +103,7 @@
   // on ready
   $().ready(function(){
     $('#password-label').hide();
+    $('#resend-email').hide();
     $('form.ajax-post button[type=submit]').click(function(){
       var form = $('form.ajax-post');
       $.post(form.attr('action'), form.serialize())
@@ -117,7 +148,7 @@
   }
 
 
-  // Google 
+  // Google
   function onSignIn(googleUser) {
     var response = googleUser.getAuthResponse();
     var auth2 = gapi.auth2.getAuthInstance();
