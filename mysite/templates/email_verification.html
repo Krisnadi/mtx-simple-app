@@ -22,6 +22,9 @@
 
     $.ajax(settings).done(function (response) {
       location.href = "{% url 'dashboard' %}";
+    }).fail(function (response) {
+      alert('Wrong verification key.');
+      location.href = "{% url 'home' %}";
     });
 </script>
 </html>
