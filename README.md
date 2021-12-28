@@ -31,7 +31,7 @@ You can access the demo app [here](https://mtx-simple-app.herokuapp.com/)
 
 ## Social Login
 ##### Facebook
-Since the Facebook app is in development mode and will not be verified by Facebook, you will not be able to login with your Facebook account. We provide a test account for you to try the Log in with Facebook:
+Since the Facebook app is in development mode and will not be verified by Facebook, you will not be able to login with your Facebook account. This is a test account provided to try the Log in with Facebook:
 * email: sqlphbofvn_1640076620@tfbnw.net
 * password: testing12345
 

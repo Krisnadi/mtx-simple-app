@@ -31,6 +31,12 @@
     font-size: 15px;
     font-weight: bold;
 }
+.g-signin2 {
+    width: 100%;
+}
+.g-signin2 > div {
+    margin: 0 auto;
+}
 </style>
 </head>
 <body>
@@ -54,8 +60,10 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Create account</button>
         </div>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-onlogin="checkLoginState();" data-scope="public_profile,email"></div>
+        <div style="margin: 0 auto; text-align: center;">
+          <div class="g-signin2" data-onsuccess="onSignIn"></div><br>
+          <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-onlogin="checkLoginState();" data-scope="public_profile,email"></div>
+        </div>
     </form>
     <p class="text-center"><a href="{% url 'home' %}">Log in</a></p>
 </div>
