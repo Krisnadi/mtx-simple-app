@@ -152,21 +152,17 @@
   function onSignIn(googleUser) {
     var response = googleUser.getAuthResponse();
     var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
+    auth2.signOut().then(function () {});
     socialLogin("google", response.access_token);
   }
 
 
   // Facebook
   function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-    console.log('statusChangeCallback');
-    console.log(response);                   // The current login status of the person.
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
       socialLogin("facebook", response['authResponse']['accessToken']);
     } else {                                 // Not logged into your webpage or we are unable to tell.
-      console.log('not connected');
+      alert('The FB app is in development mode, to test it with a test account please refer to repo README.md');
     }
   }
 
