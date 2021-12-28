@@ -17,13 +17,13 @@
 
 ## Run Development Server
 * Run the app with `python manage.py runserver`
-* To access the app, open `localhost:8000` on browser
+* To access the app, open [localhost:8000](http://localhost:8000) on browser
 
 ## Testing
 To run the test case, execute `python manage.py test`
 
 ## API Documentation
-The API documentation for all the endpoints are listed [here](http://mtx-simple-app.herokuapp.com/docs/)
+The API documentation for all the endpoints are listed [here](https://mtx-simple-app.herokuapp.com/docs/)
 
 ## Demo App
 You can access the demo app [here](https://mtx-simple-app.herokuapp.com/)
@@ -31,8 +31,8 @@ You can access the demo app [here](https://mtx-simple-app.herokuapp.com/)
 ## Social Login
 ##### Facebook
 Since the Facebook app is in development mode and will not be verified by Facebook, you will not be able to login with your Facebook account. We provide a test account for you to try the Log in with Facebook:
-email: sqlphbofvn_1640076620@tfbnw.net
-password: testing12345
+* email: sqlphbofvn_1640076620@tfbnw.net
+* password: testing12345
 
 ## App Structure
 ```
