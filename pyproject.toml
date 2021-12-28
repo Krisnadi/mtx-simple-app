@@ -15,9 +15,9 @@ dj-rest-auth = "^2.1.11"
 djangorestframework-simplejwt = "^5.0.0"
 django-allauth = "^0.47.0"
 gunicorn = "^20.1.0"
+drf-yasg = "^1.20.0"
 
 [tool.poetry.dev-dependencies]
-drf-yasg = "^1.20.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

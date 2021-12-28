@@ -43,7 +43,7 @@ unicode_backport = ["unicodedata2"]
 name = "coreapi"
 version = "2.3.3"
 description = "Python client library for Core API."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -57,7 +57,7 @@ uritemplate = "*"
 name = "coreschema"
 version = "0.0.4"
 description = "Core Schema."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -187,7 +187,7 @@ test = ["cryptography", "pytest-cov", "pytest-django", "pytest-xdist", "pytest",
 name = "drf-yasg"
 version = "1.20.0"
 description = "Automated generation of real Swagger/OpenAPI 2.0 schemas from Django Rest Framework code."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -230,7 +230,7 @@ python-versions = ">=3.5"
 name = "inflection"
 version = "0.5.1"
 description = "A port of Ruby on Rails inflector to Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -238,7 +238,7 @@ python-versions = ">=3.5"
 name = "itypes"
 version = "1.2.0"
 description = "Simple immutable types for python."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -246,7 +246,7 @@ python-versions = "*"
 name = "jinja2"
 version = "3.0.3"
 description = "A very fast and expressive template engine."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -260,7 +260,7 @@ i18n = ["Babel (>=2.7)"]
 name = "markupsafe"
 version = "2.0.1"
 description = "Safely add untrusted strings to HTML/XML markup."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -281,7 +281,7 @@ signedtoken = ["cryptography (>=3.0.0,<4)", "pyjwt (>=2.0.0,<3)"]
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -325,7 +325,7 @@ tests = ["pytest (>=6.0.0,<7.0.0)", "coverage[toml] (==5.0.4)"]
 name = "pyparsing"
 version = "3.0.6"
 description = "Python parsing module"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -392,7 +392,7 @@ rsa = ["oauthlib[signedtoken] (>=3.0.0)"]
 name = "ruamel.yaml"
 version = "0.17.19"
 description = "ruamel.yaml is a YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3"
 
@@ -407,7 +407,7 @@ jinja2 = ["ruamel.yaml.jinja2 (>=0.2)"]
 name = "ruamel.yaml.clib"
 version = "0.2.6"
 description = "C version of reader, parser and emitter for ruamel.yaml derived from libyaml"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -423,7 +423,7 @@ python-versions = ">=3.5"
 name = "uritemplate"
 version = "4.1.1"
 description = "Implementation of RFC 6570 URI Templates"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -443,7 +443,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "3.9.9"
-content-hash = "ed3f21c2cdf971299c28b3bab53e99eb1d079766598c6940033b0ccc4df17025"
+content-hash = "bcabfc6d3147c10b1ce132088726ef6a77a131b5334648ed6c7a6e41e475adab"
 
 [metadata.files]
 asgiref = [
