@@ -46,7 +46,6 @@ Since the Facebook app is in development mode and will not be verified by Facebo
 │   ├── registration
 │   │   ├── urls.py
 │   │   └── views.py
-│   ├── test.py
 │   ├── tests.py
 │   ├── urls.py
 │   ├── validators.py
