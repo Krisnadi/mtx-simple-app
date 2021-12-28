@@ -1,4 +1,5 @@
 # MTX Simple App
+This is a simple app where users can sign up and sign in from a landing page into a dashboard. It provides options to sign up with email and password, sign in with Google, and sign in with Facebook. Inside the dashboard, user can see the profile, change name, and change password.
 
 ## Requirements
 * Python 3.9.9
