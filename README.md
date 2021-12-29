@@ -7,14 +7,14 @@ This is a simple app where users can sign up and sign in from a landing page int
 * Postgresql
 
 ## Installation
-* Download and install PostgreSQL for database [Read more...](https://www.postgresql.org/)
+* Download and install PostgreSQL database [Read more...](https://www.postgresql.org/)
 * Create a new database for the app
-* Install python Poetry for dependency management [Read more...](https://python-poetry.org/docs/#installation)
+* Install python Poetry as the dependency manager [Read more...](https://python-poetry.org/docs/#installation)
 * Clone the repository `git clone https://github.com/Krisnadi/mtx-simple-app.git`
-* Change directory to root folder `cd mtx-simple-app/`
+* Change directory to app root folder `cd mtx-simple-app/`
 * Create poetry virtual environment and install the project dependencies with `poetry install` and activate it with `poetry shell` [Read more...](https://python-poetry.org/docs/basic-usage/)
-* Create an .env file by copying the template `cp .env.dist .env` and adjust the content
-* Run the migration with `python manage.py migrate`
+* Create an .env file by copying the template `cp .env.dist .env` and change the .env content
+* Run the database migration with `python manage.py migrate`
 
 ## Run Development Server
 * Run the app with `python manage.py runserver`
