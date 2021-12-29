@@ -29,12 +29,6 @@ The API documentation for all the endpoints are listed [here](https://mtx-simple
 ## Demo App
 You can access the demo app [here](https://mtx-simple-app.herokuapp.com/)
 
-## Social Login
-##### Facebook
-Since the Facebook app is in development mode and will not be verified by Facebook, you will not be able to login with your Facebook account. This is a test account provided to try the Log in with Facebook:
-* email: sqlphbofvn_1640076620@tfbnw.net
-* password: testing12345
-
 ## App Structure
 ```
 ├── auth
