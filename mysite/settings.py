@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
 
     'drf_yasg',
+
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'user.middleware.LastUserSessionMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'

@@ -42,6 +42,7 @@
         <li class="tablinks active" onclick="changeTab(event, 'tab-profile')"><a href="javascript:void(0);">Profile</a></li>
         <li class="tablinks" onclick="changeTab(event, 'tab-changename')"><a href="javascript:void(0);">Change Name</a></li>
         <li class="tablinks" onclick="changeTab(event, 'tab-changepassword')"><a href="javascript:void(0);">Change Password</a></li>
+        <li class="tablinks" onclick="changeTab(event, 'tab-users')"><a href="javascript:void(0);">Users</a></li>
         <li><a href="javascript:void(0);" id="logout">Log Out</a></li>
       </ul><br>
     </div>
@@ -89,6 +90,32 @@
             <button type="submit" class="btn btn-primary btn-block">Save</button>
         </div>
       </form>
+    </div>
+
+    <div id="tab-users" class="col-sm-9 tabcontent" style="display: none;">
+      <h2>Users</h2>
+      <label id="totalsignup-label">Total signed up:</label>
+      <br>
+      <label id="todaysession-label">Total active sessions today:</label>
+      <br>
+      <label id="averagesession-label">Average active sessions in the last 7 days:</label>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Last Login</th>
+            <th scope="col">Sign up Date</th>
+            <th scope="col">Times Logged in</th>
+            <th scope="col">Last User Session</th>
+          </tr>
+        </thead>
+        <tbody id="userlist-table">
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -224,6 +251,39 @@
   // logout
   $("#logout").click(function(){
     logout();
+  });
+
+
+  // user dashboard
+  var settings = {
+    "url": "{% url 'user_statistic' %}",
+    "method": "GET"
+  };
+
+  $.ajax(settings).done(function (response) {
+    $('#totalsignup-label').html('Total signed up: ' + response['total_signup']);
+    $('#todaysession-label').html('Total active sessions today: ' + response['today_active_session']);
+    $('#averagesession-label').html('Average active sessions in the last 7 days: ' + response['average_active_session']);
+  });
+
+  var settings = {
+    "url": "{% url 'user-list' %}",
+    "method": "GET"
+  };
+
+  $.ajax(settings).done(function (response) {
+    content = "";
+    for (let i = 0; i < response.length; i++) {
+      content += "<tr><th scope='row'>" + (i+1) + "</th>" +
+                 "<td>" + response[i].email + "</td>" +
+                 "<td>" + response[i].first_name + "</td>" +
+                 "<td>" + response[i].last_name + "</td>" +
+                 "<td>" + response[i].last_login + "</td>" +
+                 "<td>" + response[i].date_joined + "</td>" +
+                 "<td>" + response[i].login_count + "</td>" +
+                 "<td>" + response[i].last_session + "</td></tr>";
+    }
+    $("#userlist-table").html(content);
   });
 </script>
 </html>

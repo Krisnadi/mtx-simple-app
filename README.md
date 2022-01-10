@@ -1,5 +1,5 @@
 # MTX Simple App
-This is a simple app where users can sign up and sign in from a landing page into a dashboard. It provides options to sign up with email and password, sign in with Google, and sign in with Facebook. Inside the dashboard, user can see the profile, change name, and change password.
+This is a simple app where users can sign up and sign in from a landing page into a dashboard. It provides options to sign up with email and password, sign in with Google, and sign in with Facebook. Inside the dashboard, user can see the profile, change name, change password, see the user list and statistic.
 
 ## Requirements
 * Python 3.9.9
@@ -24,7 +24,7 @@ This is a simple app where users can sign up and sign in from a landing page int
 To run the test case, execute `python manage.py test`
 
 ## API Documentation
-The API documentation for all the endpoints are listed [here](https://mtx-simple-app.herokuapp.com/docs/)
+The API documentation for all the endpoints are listed [here](https://documenter.getpostman.com/view/2027606/UVXetdxd)
 
 ## Demo App
 You can access the demo app [here](https://mtx-simple-app.herokuapp.com/)
@@ -65,11 +65,25 @@ You can access the demo app [here](https://mtx-simple-app.herokuapp.com/)
 ├── poetry.lock
 ├── Procfile
 ├── pyproject.toml
+├── README.md
 └── templates
     ├── dashboard.html
     ├── email_verification.html
     ├── home.html
     └── signup.html
+└── user
+    ├── admin.py
+    ├── apps.py
+    ├── __init__.py
+    ├── middleware.py
+    ├── migrations
+    │   ├── 0001_initial.py
+    │   ├── __init__.py
+    ├── models.py
+    ├── serializers.py
+    ├── tests.py
+    ├── urls.py
+    └── views.py
 ```
 * **auth**: Contains authentication related API
 * **.env**: The environment file, contains project configurations
@@ -80,3 +94,4 @@ You can access the demo app [here](https://mtx-simple-app.herokuapp.com/)
 * **Procfile**: File used for Heroku deployment [Read more...](https://devcenter.heroku.com/articles/procfile)
 * **pyproject.toml**: Contains the project dependencies used by Poetry package manager
 * **templates**: Contains the html templates of the app
+* **user**: Contains user list and statistic api

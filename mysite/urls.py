@@ -32,9 +32,10 @@ urlpatterns = [
     path('', include('frontsite.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/', include('auth.urls')),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('auth.registration.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('user/', include('user.urls')),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='api_docs'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
